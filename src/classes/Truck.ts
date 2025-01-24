@@ -8,6 +8,7 @@ import AbleToTow from '../interfaces/AbleToTow.js';
 
 // TODO: The Truck class should extend the Vehicle class and should implement the AbleToTow interface
 class Truck extends Vehicle implements AbleToTow{
+
   vin: string;
   color: string;
   make: string;
@@ -85,6 +86,7 @@ class Truck extends Vehicle implements AbleToTow{
       console.log(`Top Speed: ${this.topSpeed}`)
       console.log(`Wheeles ${this.wheels}`)
    }
+   
   }
 
 // Export the Truck class as the default export
