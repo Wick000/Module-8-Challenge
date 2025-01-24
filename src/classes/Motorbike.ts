@@ -58,7 +58,7 @@ override printDetails(
        console.log(`Year: ${this.year}`);
        console.log(`Weight: ${this.weight}`);
        console.log(`Top Speed: ${this.topSpeed}`)
-       console.log(`Wheeles ${this.wheels.length}`)
+       console.log(`Wheeles ${this.wheels}`)
     }
   };
 
