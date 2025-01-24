@@ -2,12 +2,10 @@
 import Vehicle from './Vehicle.js';
 import Wheel from './Wheel.js';
 
-interface Wheelie {
-  wheelie: () => string;
-}
+
 
 // TODO: The Motorbike class should extend the Vehicle class
-class Motorbike extends Vehicle implements Wheelie{
+class Motorbike extends Vehicle {
   // TODO: Declare properties of the Motorbike class
   // TODO: The properties should include vin, color, make, model, year, weight, top speed, and wheels
   vin: string;
@@ -38,6 +36,7 @@ class Motorbike extends Vehicle implements Wheelie{
     this.year = year;
     this.weight = weight;
     this.topSpeed = topSpeed;
+  //  this.wheels = wheels.length === 2? wheels : [new Wheel(), new Wheel()];
     
     if (wheels.length !== 2) {
       this.wheels = [new Wheel(), new Wheel(),];
@@ -46,11 +45,11 @@ class Motorbike extends Vehicle implements Wheelie{
     }
      
     }
-   wheelie(): string {
-      return `Motorbike ${this.make} ${this.model} is doing a wheelie!"`;
+   doWheelie() {
+     console.log(`Motorbike ${this.make} ${this.model} is doing a wheelie!"`);
     }
 override printDetails( 
-     ): void {
+     )  { super.printDetails();
        console.log(`VIN ${this.vin}`)
        console.log(`Color: ${this.color}`);
        console.log(`Make: ${this.make}`);

@@ -45,6 +45,7 @@ class Truck extends Vehicle {
     // TODO: The method should log the details of the Truck
     // TODO: The details should include the VIN, make, model, year, weight, top speed, color, towing capacity, and wheels
     printDetails() {
+        super.printDetails();
         console.log(`VIN ${this.vin}`);
         console.log(`Color: ${this.color}`);
         console.log(`Make: ${this.make}`);

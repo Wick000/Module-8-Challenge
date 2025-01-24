@@ -12,6 +12,7 @@ class Motorbike extends Vehicle {
         this.year = year;
         this.weight = weight;
         this.topSpeed = topSpeed;
+        //  this.wheels = wheels.length === 2? wheels : [new Wheel(), new Wheel()];
         if (wheels.length !== 2) {
             this.wheels = [new Wheel(), new Wheel(),];
         }
@@ -19,10 +20,11 @@ class Motorbike extends Vehicle {
             this.wheels = wheels;
         }
     }
-    wheelie() {
-        return `Motorbike ${this.make} ${this.model} is doing a wheelie!"`;
+    doWheelie() {
+        console.log(`Motorbike ${this.make} ${this.model} is doing a wheelie!"`);
     }
     printDetails() {
+        super.printDetails();
         console.log(`VIN ${this.vin}`);
         console.log(`Color: ${this.color}`);
         console.log(`Make: ${this.make}`);

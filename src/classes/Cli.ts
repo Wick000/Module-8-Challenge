@@ -114,9 +114,11 @@ class Cli {
         },
       ])
       .then((answers) => {
+        let vehicle: Car | Truck | Motorbike;
+        const vin = Cli.generateVin();
         const car = new Car(
           // TODO: The generateVin method is static and should be called using the class name Cli, make sure to use Cli.generateVin() for creating a truck and motorbike as well!
-          Cli.generateVin(),
+          vin,
           answers.color,
           answers.make,
           answers.model,
@@ -175,8 +177,9 @@ class Cli {
         },
       ])
       .then((answers) => {
+        const vin = Cli.generateVin();
         const truck = new Truck (
-        Cli.generateVin(),
+          vin,
           answers.color,
           answers.make,
           answers.model,
@@ -184,7 +187,7 @@ class Cli {
           parseInt(answers.weight),
           parseInt(answers.topSpeed),
           [],
-          answers.towingCapacity,
+          parseInt(answers.towingCapacity),
         );
            // push the car to the vehicles array
            this.vehicles.push(truck);
@@ -255,6 +258,7 @@ class Cli {
         },
       ])
       .then((answers) => {
+        const vin = Cli.generateVin()
         const motorbike = new Motorbike (
           Cli.generateVin(),
           answers.color,
@@ -263,7 +267,7 @@ class Cli {
           parseInt(answers.year),
           parseInt(answers.weight),
           parseInt(answers.topSpeed),
-          [], 
+          [new Wheel(parseInt(answers.frontWheelDiameter), answers.frontWheelBrand), new Wheel(parseInt(answers.rearWheelDiameter), answers.rearWheelBrand)]
         );
         this.vehicles.push(motorbike);
         // set the selectedVehicleVin to the vin of the car
@@ -295,20 +299,21 @@ class Cli {
         },
       ])
       .then((answers) => {
-        const selectedTowVehicle = answers.vehicleToTow
-        if (selectedTowVehicle.vin === truck.vin){
-          console.log(`${selectedTowVehicle.make} ${selectedTowVehicle.model} is unable to tow itself!`)
-          this.performActions();
-        } else {
-          console.log(`${selectedTowVehicle.make} ${selectedTowVehicle.model} is being towed!`)
-          this.performActions();
-        }
+        const vehicle = answers.vehicleToTow;
+        console.log(`Towing vehicle: ${vehicle.make} ${vehicle.model} (VIN: ${vehicle.vin}. Weight: ${vehicle.weight})`)
+        this.towVehicle(vehicle);
         // TODO: check if the selected vehicle is the truck
         // TODO: if it is, log that the truck cannot tow itself then perform actions on the truck to allow the user to select another action
         // TODO: if it is not, tow the selected vehicle then perform actions on the truck to allow the user to select another action
+      })
+      .catch((error) => {
+        console.error('Error selecting vehicle to tow:', error);
       });
   }
-
+   towVehicle(vehicle: Car | Truck | Motorbike): void {
+    console.log(`Vehicle with VIN ${vehicle.vin} and weight ${vehicle.weight} kg is being towed.`);
+   } 
+   
   // method to perform actions on a vehicle
   performActions(): void {
     inquirer
@@ -392,6 +397,33 @@ class Cli {
               this.vehicles[i].reverse();
             }
           }
+          } else if (answers.action === 'Tow') {
+            // find the selected vehicle and tow it
+            for (let i = 0; i < this.vehicles.length; i++) {
+              if (this.vehicles[i].vin === this.selectedVehicleVin) {
+                // call the findVehicleToTow method to find a vehicle to tow
+                if (this.vehicles[i] instanceof Truck) {
+                  this.findVehicleToTow(this.vehicles[i] as Truck);
+                  return;
+                } else {
+                  console.log('Only trucks can tow vehicles.');
+                }
+              }
+            }
+          } else if (answers.action === 'Do Wheelie') { 
+            // find the selected vehicle and perform a wheelie
+            for (let i = 0; i < this.vehicles.length; i++) {
+              if (this.vehicles[i].vin === this.selectedVehicleVin) {
+                // call the wheelie method to perform a wheelie
+                if (this.vehicles[i] instanceof Motorbike) {
+                  (this.vehicles[i] as Motorbike).doWheelie();
+                } else {
+                  console.log('Only motorbikes can perform a wheelie.');
+                }
+              }
+            }
+          }
+          
         // } else if (answers.action === 'Tow') {
         //   // Check if the selected vehicle is a truck
         //   const selectedVehicle = this.vehicles.find(
@@ -416,7 +448,7 @@ class Cli {
         //   } else {
         //     console.log('The selected vehicle is not a motorbike.');
         //   }
-         }
+        
         // TODO: add statements to perform the tow action only if the selected vehicle is a truck. Call the findVehicleToTow method to find a vehicle to tow and pass the selected truck as an argument. After calling the findVehicleToTow method, you will need to return to avoid instantly calling the performActions method again since findVehicleToTow is asynchronous.
         // TODO: add statements to perform the wheelie action only if the selected vehicle is a motorbike
         else if (answers.action === 'Select or create another vehicle') {
