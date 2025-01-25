@@ -38,4 +38,4 @@ If you have any questions, feel free to reach out to me at [wick9872000@yahoo.co
 
 ## Video Link
 
-[Click here for youtube video link!](https://youtu.be/D4oYS2RzoT4)
+[Click here for the youtube video!](https://youtu.be/D4oYS2RzoT4)
