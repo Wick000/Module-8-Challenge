@@ -269,7 +269,8 @@ class Cli {
         });
     }
     towVehicle(vehicle) {
-        console.log(`Vehicle with VIN ${vehicle.vin} and weight ${vehicle.weight} kg is beign towed.`);
+        console.log(`Vehicle with VIN ${vehicle.vin} and weight ${vehicle.weight} kg is being towed.`);
+        this.performActions();
     }
     // method to perform actions on a vehicle
     performActions() {
@@ -391,30 +392,6 @@ class Cli {
                     }
                 }
             }
-            // } else if (answers.action === 'Tow') {
-            //   // Check if the selected vehicle is a truck
-            //   const selectedVehicle = this.vehicles.find(
-            //     (vehicle) => vehicle.vin === this.selectedVehicleVin
-            //   );
-            //   if (selectedVehicle && selectedVehicle instanceof Truck) {
-            //     // Call the findVehicleToTow method and pass the selected truck
-            //     //selectedVehicle.findVehicleToTow(selectedVehicle);
-            //     return; // Prevent performing other actions immediately
-            //   } else {
-            //     console.log('The selected vehicle is not a truck.');
-            //   }
-            // } else if (answers.action === 'Do Wheelie') {
-            //   // Check if the selected vehicle is a motorbike
-            //   const selectedVehicle = this.vehicles.find(
-            //     (vehicle) => vehicle.vin === this.selectedVehicleVin
-            //   );
-            //   if (selectedVehicle && selectedVehicle instanceof Motorbike) {
-            //     // Perform the wheelie action
-            //     selectedVehicle.wheelie();
-            //     return; // Prevent performing other actions immediately
-            //   } else {
-            //     console.log('The selected vehicle is not a motorbike.');
-            //   }
             // TODO: add statements to perform the tow action only if the selected vehicle is a truck. Call the findVehicleToTow method to find a vehicle to tow and pass the selected truck as an argument. After calling the findVehicleToTow method, you will need to return to avoid instantly calling the performActions method again since findVehicleToTow is asynchronous.
             // TODO: add statements to perform the wheelie action only if the selected vehicle is a motorbike
             else if (answers.action === 'Select or create another vehicle') {
